@@ -58,7 +58,7 @@ def signup():
     password_error = ''
     verifypassword_error = ''
 
-    if request.method == "POST":
+    if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         verifypassword = request.form['verifypassword']
@@ -98,14 +98,15 @@ def signup():
                 return redirect('/newpost')
 
             if existing_user:
-                flash('User already exists')
+                flash('User already exists', 'error')
+                return render_template('signup.html')
 
-            else:
-                return render_template('/login',
-                username = username,
-                username_error = username_error,
-                password_error = password_error,
-                verifypassword_error = verifypassword_error)
+        else:
+            return render_template('signup.html',
+            username = username,
+            username_error = username_error,
+            password_error = password_error,
+            verifypassword_error = verifypassword_error)
 
     return render_template('signup.html')
 
